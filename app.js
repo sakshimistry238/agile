@@ -1,22 +1,30 @@
-const mysql = require('mysql2');
-const express = require('express');
+const express = require("express");
 const app = express();
-const port = 5000;
-
-// MySQL database connection
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'node_restapi',
+const path = require("path");
+const bodyParser = require("body-parser"); 
+const jmEzMySql = require("jm-ez-mysql");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const adminRoute = require("./routes/adminroutes")
+const middleware = require("./authenticate")
+dotenv.config();
+jmEzMySql.init({
+    acquireTimeout: 300,
+    connectTimeout: 300,
+    connectionLimit: 100,
+    database: process.env.SQL_DATABASE,
+    dateStrings: true,
+    host: process.env.SQL_SERVER,
+    multipleStatements: true,
+    password: process.env.SQL_PASSWORD,
+    timeout: 300,
+    timezone: "utc",
+    charset : "utf8mb4",
+    user: process.env.SQL_USER,
 });
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-    } else {
-        console.log('Connected to MySQL');
-    }
-});
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.use(bodyParser.json());
+app.use("/admin",adminRoute)
+app.use("/authenticate",middleware)
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
