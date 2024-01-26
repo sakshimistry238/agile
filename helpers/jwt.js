@@ -15,7 +15,6 @@ class Jwt {
                 return jwt.verify(token, process.env.JWT_SECRET);
             }
             catch (error) {
-                // logger.error(error);
                 return false;
             }
         }

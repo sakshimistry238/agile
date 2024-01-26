@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const moment = (require("moment-timezone"));
 const path = require("path");
 const bodyParser = require("body-parser"); 
 const jmEzMySql = require("jm-ez-mysql");
@@ -22,6 +23,7 @@ jmEzMySql.init({
     charset : "utf8mb4",
     user: process.env.SQL_USER,
 });
+moment.tz.setDefault("Asia/Kolkata");
 app.use(bodyParser.json());
 app.use("/admin",adminRoute)
 app.use("/authenticate",middleware)
