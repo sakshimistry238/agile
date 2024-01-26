@@ -26,4 +26,4 @@
    ```bash
    npm install body-parser@^1.20.2 cors@^2.8.5 dotenv@^16.4.1 express@^4.18.2 jm-ez-mysql@^4.0.0 jsonwebtoken@^9.0.2 moment@^2.30.1 moment-timezone@^0.5.44 nodemon@^3.0.3
 
-npm run start
+## npm run start
