@@ -10,12 +10,9 @@ router.post('/adminLogin', async (req, res, next) => {
         let token = Jwt.getAuthToken({ userId: user.id, role: "Admin" });
         data[0].token = token;
         return res.status(200).json(ResponseBuilder.data(data, "Welcome Back"));
+    }else{
+        return res.status(500).json(ResponseBuilder.errorMessage("Invalid Credentials."));
     }
-
-    return res.status(200).json({
-        data: data,
-        msg: "Success"
-    })
 });
 
 
